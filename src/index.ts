@@ -33,13 +33,3 @@ NodeSiteClient.create('memestream', '/get', (request: NodeSiteRequest) => {
 		body: `"${memes.__getString(request.uri.replace(/[^0-9]+/g, ''))}"`,
 	});
 });
-
-NodeSiteClient.create('memestream', '/remove', (request: NodeSiteRequest) => {
-	memes.array.filter((a: ValidConfigValue) => (typeof a === 'string') && !request.uri.includes(a));
-	return ({
-		statusCode: 302,
-		head: {
-			Location: '/',
-		},
-	});
-});
