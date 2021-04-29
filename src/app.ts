@@ -37,9 +37,11 @@ function givememe () {
 								const img = document.createElement('img');
 								if (!img || !id) return givememe();
 								img.src = `https://memestream.nodesite.eu/static/${id}.jpg`;
-								img.onload = resizememes;
+								img.onload = img.onerror = () => {
+									resizememes();
+									testmeme();
+								}
 								document.querySelector('#memes')!.appendChild(img);
-								testmeme();
 							})
 							.catch(console.log);
 					}
