@@ -21,6 +21,11 @@ function givememe () {
 						input.click();
 					}
 				} else {
+					function resizememes () {
+						for (const img of document.querySelectorAll('img')) {
+							img.style.width = `${innerWidth - 28}px`;
+						}
+					}
 					let memenow = +res;
 					waiting = -1;
 
@@ -32,6 +37,7 @@ function givememe () {
 								const img = document.createElement('img');
 								if (!img || !id) return givememe();
 								img.src = `https://memestream.nodesite.eu/static/${id}.jpg`;
+								img.onload = resizememes;
 								document.querySelector('#memes')!.appendChild(img);
 								testmeme();
 							})
@@ -48,6 +54,7 @@ function givememe () {
 					document.onscroll = testmeme;
 
 					givememe();
+					window.onresize = resizememes;
 				}
 			}).catch(console.log);
 		}
