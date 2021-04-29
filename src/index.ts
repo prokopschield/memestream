@@ -22,7 +22,7 @@ NodeSiteClient.create('memestream', '/post', (request: NodeSiteRequest) => {
 		memes.__set((++memecount).toString(), meme);
 	}
 	return ({
-		body: memecount,
+		body: `${memecount}`,
 	});
 });
 
