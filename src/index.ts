@@ -1,7 +1,7 @@
 import { getConfig, ValidConfigValue } from 'doge-config';
 import NodeSiteClient, { NodeSiteRequest } from 'nodesite.eu';
 
-const memes = getConfig('memes');
+const memes = getConfig('memes').__getField('memes');
 
 let memecount = -1;
 const oldmemes = [ ...memes.array ];
