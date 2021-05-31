@@ -15,6 +15,6 @@
 	"description": "",
 	"dependencies": {
 		"doge-config": "^0.0.6",
-		"nodesite.eu": "^1.0.23"
+		"nodesite.eu": "^1.2.0-5"
 	}
 }
