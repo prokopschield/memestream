@@ -1,5 +1,5 @@
 import { getConfig, ValidConfigValue } from 'doge-config';
-import NodeSiteClient, { NodeSiteRequest } from 'nodesite.eu';
+import { create, NodeSiteRequest } from 'nodesite.eu';
 
 const config = getConfig('meme-config', {
 	domain: `memestream-${process.env.USER}.nodesite.eu`,
@@ -18,9 +18,9 @@ for (const meme of oldmemes) {
 	}
 }
 
-NodeSiteClient.create(domain, '/', () => ({ statusCode: 302, head: { Location: '/src/index.html' }}), '.');
+create(domain, '/', () => ({ statusCode: 302, head: { Location: '/src/index.html' }}), '.');
 
-NodeSiteClient.create(domain, '/post', (request: NodeSiteRequest) => {
+create(domain, '/post', (request: NodeSiteRequest) => {
 	const meme = request.body?.toString?.();
 	if (meme && (meme.length === 64) && !memes.array.includes(meme)) {
 		memes.__set((++memecount).toString(), meme);
@@ -30,13 +30,13 @@ NodeSiteClient.create(domain, '/post', (request: NodeSiteRequest) => {
 	});
 });
 
-NodeSiteClient.create(domain, '/last', () => {
+create(domain, '/last', () => {
 	return ({
 		body: `${memecount}`,
 	});
 });
 
-NodeSiteClient.create(domain, '/get', (request: NodeSiteRequest) => {
+create(domain, '/get', (request: NodeSiteRequest) => {
 	let memeid = request.uri.replace(/[^0-9]+/g, '') || '0';
 	return ({
 		body: (
