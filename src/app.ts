@@ -21,45 +21,49 @@ function givememe () {
 						input.click();
 					}
 				} else {
-					function resizememes () {
-						for (const img of document.querySelectorAll('img')) {
-							img.style.width = `${innerWidth - 28}px`;
-						}
-					}
-					let memenow = +res;
-					waiting = -1;
-
-					function givememe() {
-						if (!memenow) return;
-						fetch(`/get/${--memenow}`)
-							.then(res => res.json())
-							.then((id: string) => {
-								const img = document.createElement('img');
-								if (!img || !id) return givememe();
-								img.src = `https://memestream.nodesite.eu/static/${id}.jpg`;
-								img.onload = img.onerror = () => {
-									resizememes();
-									testmeme();
-								}
-								document.querySelector('#memes')!.appendChild(img);
-							})
-							.catch(console.log);
-					}
-
-					function testmeme () {
-						const img = [ ...document.querySelectorAll('img') ].pop();
-						if (!img || (img.offsetTop < (window.innerHeight + window.pageYOffset))) {
-							givememe();
-						}
-					}
-
-					document.onscroll = testmeme;
-
-					givememe();
-					window.onresize = resizememes;
+					showmemes(+res);
 				}
 			}).catch(console.log);
 		}
 	};
 	input.click();
+}
+
+function showmemes (res: number) {
+	function resizememes () {
+		for (const img of document.querySelectorAll('img')) {
+			img.style.width = `${innerWidth - 28}px`;
+		}
+	}
+	let memenow = +res;
+	waiting = -1;
+
+	function givememe() {
+		if (!memenow) return;
+		fetch(`/get/${--memenow}`)
+			.then(res => res.json())
+			.then((id: string) => {
+				const img = document.createElement('img');
+				if (!img || !id) return givememe();
+				img.src = `https://memestream.nodesite.eu/static/${id}.jpg`;
+				img.onload = img.onerror = () => {
+					resizememes();
+					testmeme();
+				}
+				document.querySelector('#memes')!.appendChild(img);
+			})
+			.catch(console.log);
+	}
+
+	function testmeme () {
+		const img = [ ...document.querySelectorAll('img') ].pop();
+		if (!img || (img.offsetTop < (window.innerHeight + window.pageYOffset))) {
+			givememe();
+		}
+	}
+
+	document.onscroll = testmeme;
+
+	givememe();
+	window.onresize = resizememes;
 }
