@@ -1,6 +1,6 @@
 let waiting = 0;
 
-function givememe () {
+function givememe() {
 	const input = document.createElement('input');
 	input.setAttribute('type', 'file');
 	input.onchange = (e: Event) => {
@@ -10,27 +10,34 @@ function givememe () {
 			fetch('https://memestream.nodesite.eu/static/put', {
 				method: 'PUT',
 				body: file,
-			}).then(res => res.text()).then(a => fetch('/post', {
-				method: 'POST',
-				body: a,
-			})).then(response => response.json()).then(res => {
-				--waiting;
-				if (res.error) {
-					if (waiting == 0) {
-						alert(res.error);
-						input.click();
+			})
+				.then((res) => res.text())
+				.then((a) =>
+					fetch('/post', {
+						method: 'POST',
+						body: a,
+					})
+				)
+				.then((response) => response.json())
+				.then((res) => {
+					--waiting;
+					if (res.error) {
+						if (waiting == 0) {
+							alert(res.error);
+							input.click();
+						}
+					} else {
+						showmemes(+res);
 					}
-				} else {
-					showmemes(+res);
-				}
-			}).catch(console.log);
+				})
+				.catch(console.log);
 		}
 	};
 	input.click();
 }
 
-function showmemes (res: number) {
-	function resizememes () {
+function showmemes(res: number) {
+	function resizememes() {
 		for (const img of document.querySelectorAll('img')) {
 			img.style.width = `${innerWidth - 28}px`;
 		}
@@ -41,7 +48,7 @@ function showmemes (res: number) {
 	function givememe() {
 		if (!memenow) return;
 		fetch(`/get/${--memenow}`)
-			.then(res => res.json())
+			.then((res) => res.json())
 			.then((id: string) => {
 				const img = document.createElement('img');
 				if (!img || !id) return givememe();
@@ -49,15 +56,15 @@ function showmemes (res: number) {
 				img.onload = img.onerror = () => {
 					resizememes();
 					testmeme();
-				}
+				};
 				document.querySelector('#memes')!.appendChild(img);
 			})
 			.catch(console.log);
 	}
 
-	function testmeme () {
-		const img = [ ...document.querySelectorAll('img') ].pop();
-		if (!img || (img.offsetTop < (window.innerHeight + window.pageYOffset))) {
+	function testmeme() {
+		const img = [...document.querySelectorAll('img')].pop();
+		if (!img || img.offsetTop < window.innerHeight + window.pageYOffset) {
 			givememe();
 		}
 	}
