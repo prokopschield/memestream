@@ -48,6 +48,11 @@ doge-config@^0.3.0-3, doge-config@^0.3.5:
   dependencies:
     doge-json "^1.1.0-3"
 
+doge-json@*:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/doge-json/-/doge-json-1.0.4.tgz#2f4196ac7f9d79b582fb1e747c3d78bc5abcf794"
+  integrity sha512-4E/33E0ylyCsGyM5LDEkBTxtq7sI5hV/hgMZl9naqtu8iV+Sow/t2j1CrUqdEWSieLxHtOJ7HfgbLPuDo37k7A==
+
 doge-json@>=1.1.0-3, doge-json@^1.1.0-3:
   version "1.1.0-3"
   resolved "https://registry.yarnpkg.com/doge-json/-/doge-json-1.1.0-3.tgz#4cdedf2daf6116bce73c26aed7e52c6041804c4f"
@@ -114,6 +119,13 @@ nodesite.eu@^1.2.0-10:
     node-fetch "^2.6.1"
     socket.io-client "^3.1.0"
     ts-hound "^1.0.7"
+
+oplist@^0.0.0-3:
+  version "0.0.0-3"
+  resolved "https://registry.yarnpkg.com/oplist/-/oplist-0.0.0-3.tgz#3b01d31e4117e0a4eb230042d0c11b7b0052d99b"
+  integrity sha512-XT5qZ/4Nxqu9qTBO7XABMz4uH+JauQhz1oyKn5olOdIhQK7OGrsSsU95dHVsnNWBgTSbMAoUMyXhzmne4Mf3tQ==
+  dependencies:
+    doge-json "*"
 
 parseqs@0.0.6:
   version "0.0.6"

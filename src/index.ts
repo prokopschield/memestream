@@ -1,11 +1,16 @@
 import { getConfig } from 'doge-config';
 import { create, NodeSiteRequest } from 'nodesite.eu';
+import { OpList } from 'oplist';
 
 const config = getConfig('meme-config', {
 	domain: `memestream-${process.env.USER}.nodesite.eu`,
 });
 const domain = config.__getString('domain');
 const memes = getConfig('memes').__getField('memes');
+
+const banned = new OpList('config/banned.txt');
+
+const on_init_banned = [...banned.entries];
 
 let memecount = -1;
 const oldmemes = [...memes.array];
@@ -15,7 +20,8 @@ for (const meme of oldmemes) {
 	if (
 		typeof meme === 'string' &&
 		meme.length === 64 &&
-		!newmemes.includes(meme)
+		!newmemes.includes(meme) &&
+		!on_init_banned.includes(meme)
 	) {
 		memes.__set((++memecount).toString(), meme);
 		newmemes.push(meme);
