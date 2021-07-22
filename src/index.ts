@@ -1,4 +1,4 @@
-import { getConfig, ValidConfigValue } from 'doge-config';
+import { getConfig } from 'doge-config';
 import { create, NodeSiteRequest } from 'nodesite.eu';
 
 const config = getConfig('meme-config', {

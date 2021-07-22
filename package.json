@@ -14,7 +14,7 @@
 	"keywords": [],
 	"description": "",
 	"dependencies": {
-		"doge-config": "^0.0.6",
-		"nodesite.eu": "^1.2.0-5"
+		"doge-config": "^0.3.5",
+		"nodesite.eu": "^1.2.0-10"
 	}
 }
